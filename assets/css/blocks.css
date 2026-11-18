@@ -1,0 +1,429 @@
+/* ============================================================
+   JWP ポータブルブロック共通 コンポーネント
+   準拠: JWPブロック量産 実行プロンプト v1.0 §3・§4・§7
+   ============================================================ */
+
+/* ---- 冒頭80字の結論（AI引用ゾーン）---- */
+.conclusion{
+  border:1px solid var(--keisen);
+  border-left:3px solid var(--ai);
+  padding:var(--sp-4) var(--sp-4);
+  margin:var(--sp-5) 0;
+  font-weight:500;
+  font-size:1.05rem;
+  max-width:var(--measure);
+  background:color-mix(in srgb,var(--washi-2) 45%,var(--washi));
+}
+.conclusion .data{color:var(--ai)}
+
+/* ---- 測定条件テーブル・実測値テーブル ---- */
+.data-table caption{
+  text-align:left;font-size:.85rem;color:var(--sumi);
+  font-weight:500;padding-bottom:var(--sp-2);
+}
+.data-table th,.data-table td{
+  border:1px solid var(--keisen);
+  padding:.6em .9em;font-size:.9rem;text-align:left;
+  vertical-align:top;
+}
+.data-table thead th{
+  background:var(--washi-2);font-weight:500;
+}
+.data-table td.num,.data-table th.num{text-align:right}
+.inverse .data-table th,.inverse .data-table td{border-color:color-mix(in srgb,var(--washi) 25%,transparent)}
+.inverse .data-table thead th{background:color-mix(in srgb,var(--washi) 12%,transparent)}
+.table-scroll{overflow-x:auto;margin:var(--sp-4) 0}
+
+/* ---- 実測サイドノート（sticky・Monoで縦積み）---- */
+.side-note{
+  border-top:2px solid var(--sumi);
+  padding-top:var(--sp-3);
+  font-size:.82rem;
+}
+.side-note dt{
+  font-family:var(--font-display-en);
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gin);margin-top:var(--sp-3);
+}
+.side-note dd{
+  font-family:var(--font-data);
+  font-size:1.05rem;color:var(--ai);
+}
+.inverse .side-note dd{color:var(--shin)}
+
+/* ---- FAQ ---- */
+.faq{max-width:var(--measure)}
+.faq details{border-bottom:1px solid var(--keisen)}
+.faq summary{
+  cursor:pointer;padding:var(--sp-3) 0;font-weight:500;
+  list-style:none;position:relative;padding-right:2em;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"＋";position:absolute;right:.2em;top:50%;transform:translateY(-50%);
+  color:var(--shin);font-family:var(--font-data);
+}
+.faq details[open] summary::after{content:"−"}
+.faq .faq-a{padding:0 0 var(--sp-3);color:color-mix(in srgb,var(--sumi) 82%,var(--washi))}
+
+/* ---- CTA（記事末尾1本のみ）---- */
+.cta-block{
+  border:1px solid var(--keisen);
+  padding:var(--sp-5) var(--sp-4);
+  margin:var(--sp-6) 0 0;
+  text-align:center;
+}
+.cta-block p{margin:0 auto var(--sp-4);max-width:38em}
+.cta-block .nav-cta{display:inline-block;font-size:.95rem;padding:.9em 2.4em}
+
+/* ---- DATA-PENDING（未測定スタブ）---- */
+.pending-note{
+  border:1px dashed var(--gin);
+  padding:var(--sp-4);
+  margin:var(--sp-5) 0;
+  max-width:var(--measure);
+  font-size:.9rem;color:color-mix(in srgb,var(--sumi) 75%,var(--washi));
+}
+.pending-note strong{color:var(--shu)}
+
+/* ---- ダイライン（抜き型展開図）---- */
+.dieline{margin:var(--sp-5) 0}
+.dieline svg{width:100%;height:auto}
+.dieline .cut   {stroke:var(--ai);stroke-width:1.6;fill:none}                     /* 実線＝カット */
+.dieline .crease{stroke:var(--ai);stroke-width:1.1;stroke-dasharray:6 5;fill:none} /* 破線＝罫線（折り） */
+.dieline .perf  {stroke:var(--ai);stroke-width:1.1;stroke-dasharray:10 4 2 4;fill:none} /* 一点鎖線＝ミシン目 */
+.dieline .half  {stroke:var(--ai);stroke-width:1.1;stroke-dasharray:10 4 2 4 2 4;fill:none} /* 二点鎖線＝ハーフカット */
+.dieline .fill-paper{fill:color-mix(in srgb,var(--washi-2) 60%,var(--washi));stroke:none}
+.dieline-legend{
+  display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-4);
+  font-size:.75rem;color:var(--sumi);margin-top:var(--sp-2);
+}
+.dieline-legend span{display:inline-flex;align-items:center;gap:.5em}
+.dieline-legend i{display:inline-block;width:34px;border-top-style:solid;border-top-color:var(--ai)}
+.dieline-legend .l-cut i{border-top-width:2px}
+.dieline-legend .l-crease i{border-top-width:1px;border-top-style:dashed}
+.dieline-legend .l-perf i,.dieline-legend .l-half i{border-top-width:1px;border-top-style:dotted}
+
+/* ---- カード（ハブの記事一覧）---- */
+.card-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:var(--sp-4);margin-top:var(--sp-5);
+}
+.card{
+  border:1px solid var(--keisen);
+  padding:var(--sp-4);
+  text-decoration:none;display:block;
+  background:var(--washi);
+  border-radius:var(--radius);
+  transition:border-color .25s ease;
+}
+.card:hover{border-color:var(--shin)}
+.card .card-no{
+  font-family:var(--font-data);font-size:.72rem;color:var(--gin);
+  display:block;margin-bottom:var(--sp-2);
+}
+.card h3{font-family:var(--font-display-ja);font-weight:600;font-size:1.05rem;margin-bottom:var(--sp-2)}
+.card p{font-size:.85rem;color:color-mix(in srgb,var(--sumi) 75%,var(--washi))}
+.card .card-tag{
+  display:inline-block;margin-top:var(--sp-3);
+  font-family:var(--font-data);font-size:.68rem;letter-spacing:.08em;
+  color:var(--ai);border:1px solid var(--keisen);padding:.2em .7em;
+}
+.card.is-pending{opacity:.62}
+.card.is-pending .card-tag{color:var(--shu);border-color:var(--shu)}
+
+/* ---- 箔ハイライト（静止色でなく光の走り）---- */
+@property --foil-angle{syntax:"<angle>";initial-value:120deg;inherits:false}
+.foil{
+  background:conic-gradient(from var(--foil-angle),
+    var(--shin) 0deg, #C9A96A 40deg, var(--shin) 80deg, #8A6C30 180deg, var(--shin) 360deg);
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+}
+.foil--gin{
+  background:conic-gradient(from var(--foil-angle),
+    var(--gin) 0deg, #C7CBCF 40deg, var(--gin) 80deg, #7E8489 180deg, var(--gin) 360deg);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* ---- リビール（1ページに orchestrated な瞬間は1つだけ）---- */
+@supports (animation-timeline: view()) {
+  .reveal{
+    animation:reveal linear both;
+    animation-timeline:view();
+    animation-range:entry 10% cover 28%;
+  }
+}
+@keyframes reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* JSフォールバック（motion.js が .reveal に .is-inview を付与） */
+.no-scroll-timeline .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.no-scroll-timeline .reveal.is-inview{opacity:1;transform:none}
+
+/* ダイライン描画（stroke-dashoffset は motion.js が制御） */
+.dieline[data-draw] .cut,
+.dieline[data-draw] .crease,
+.dieline[data-draw] .perf,
+.dieline[data-draw] .half{
+  stroke-dashoffset:var(--draw,0);
+}
+
+/* ================================================================
+   包装用語辞典（GLOSSARY）専用コンポーネント
+   ================================================================ */
+
+/* カテゴリ色（6分類） */
+.cat-kami   { --cat:#A8823C }  /* 紙・素材=真鍮 */
+.cat-insatsu{ --cat:#1B2A4A }  /* 印刷=藍 */
+.cat-kakou  { --cat:#9E2B25 }  /* 加工=深朱 */
+.cat-seitai { --cat:#3E5C4B }  /* 製袋・製函=松葉 */
+.cat-sekkei { --cat:#16150F }  /* 設計・データ=墨 */
+.cat-butsuryu{--cat:#6B7280 }  /* 物流・発注=銀鼠 */
+
+.cat-chip{
+  display:inline-block;font-size:.72rem;font-weight:500;letter-spacing:.08em;
+  color:var(--cat,var(--ai));border:1px solid var(--cat,var(--ai));
+  padding:.2em .8em;border-radius:var(--radius);background:var(--washi);
+}
+
+/* 文様帯 ── カテゴリ色で染まるヒーロー背景（常時ゆっくり流れる） */
+.pattern-band{
+  position:relative;overflow:hidden;
+}
+.pattern-band > .pattern-bg{
+  position:absolute;inset:-15% -15% 0 0;color:var(--cat,var(--ai));opacity:.11;pointer-events:none;
+  animation:pt-drift 90s linear infinite alternate;
+}
+.pattern-band > .wrap{position:relative}
+@keyframes pt-drift{from{transform:translate(0,0)}to{transform:translate(-60px,-34px)}}
+
+/* ---- ヒーロー4変奏（slugシードで割当・ページごとに顔を変える） ---- */
+/* v0: 特大文字すかし */
+.hero-mark{
+  position:absolute;right:-.05em;bottom:-.28em;z-index:0;pointer-events:none;user-select:none;
+  font-family:var(--font-display-ja);font-weight:800;line-height:1;
+  font-size:clamp(11rem,26vw,20rem);color:var(--cat,var(--ai));opacity:.09;
+}
+/* v1: 縦組み短冊（題箋） */
+.tanzaku{
+  position:absolute;top:0;right:clamp(12px,6vw,72px);z-index:1;
+  writing-mode:vertical-rl;font-family:var(--font-display-ja);font-weight:600;
+  font-size:clamp(1.1rem,2.4vw,1.6rem);letter-spacing:.3em;
+  background:var(--cat,var(--ai));color:var(--washi);
+  padding:1.2em .55em 1.6em;border-radius:0 0 var(--radius) var(--radius);
+}
+.tanzaku small{font-size:.55em;letter-spacing:.2em;opacity:.75}
+@media(max-width:640px){.tanzaku{display:none}} /* 小画面はh1と重なるため装飾を落とす（情報はh1に完備） */
+/* v2: 色面分割（読みの大活字パネル） */
+.hero-split{display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(20px,4vw,56px);align-items:stretch}
+.hero-panel{
+  position:relative;overflow:hidden;background:var(--cat,var(--ai));color:var(--washi);
+  display:flex;align-items:center;justify-content:center;min-height:200px;
+  border-radius:var(--radius);
+}
+.hero-panel .pattern-bg{position:absolute;inset:0;color:var(--washi);opacity:.16;animation:pt-drift 90s linear infinite alternate}
+.hero-panel .kana{
+  position:relative;font-family:var(--font-display-ja);font-weight:600;
+  font-size:clamp(1.6rem,3.6vw,2.6rem);letter-spacing:.2em;writing-mode:vertical-rl;
+}
+@media(max-width:760px){.hero-split{grid-template-columns:1fr}.hero-panel{min-height:120px}.hero-panel .kana{writing-mode:horizontal-tb}}
+/* v3: 墨地反転 */
+.pattern-band.ink{background:var(--sumi);color:var(--washi)}
+.pattern-band.ink h1,.pattern-band.ink h2{color:var(--washi)}
+.pattern-band.ink .pattern-bg{opacity:.2}
+.pattern-band.ink .breadcrumb,.pattern-band.ink .breadcrumb a{color:color-mix(in srgb,var(--washi) 55%,transparent)}
+.pattern-band.ink .eyebrow{color:var(--shin)}
+.pattern-band.ink .conclusion{background:color-mix(in srgb,var(--washi) 8%,transparent);border-color:color-mix(in srgb,var(--washi) 25%,transparent);border-left-color:var(--shin)}
+.pattern-band.ink .cat-chip{background:transparent;color:var(--washi);border-color:color-mix(in srgb,var(--washi) 45%,transparent)}
+.pattern-band.ink .hero-mark{opacity:.14}
+.pattern-band.ink .pattern-bg,.pattern-band.ink .hero-mark{color:var(--shin)} /* 墨地では金で描く（設計=墨カテゴリ対策含む） */
+.pattern-band.ink .lead{color:color-mix(in srgb,var(--washi) 82%,transparent)}
+
+/* 箔スイープ（見出しの1語だけに使う） */
+.foil-sweep{
+  background:linear-gradient(100deg,var(--shin) 20%,#E8CE8F 38%,var(--shin) 55%,#8A6C30 75%,var(--shin) 92%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:foil-slide 7s ease-in-out infinite;
+}
+@keyframes foil-slide{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+
+/* 統計列 */
+.stat-row{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,56px);margin-top:var(--sp-5)}
+.stat-row .stat b{
+  display:block;font-family:var(--font-data);font-weight:600;
+  font-size:clamp(1.6rem,3.2vw,2.4rem);color:var(--shin);letter-spacing:0;
+}
+.stat-row .stat span{font-size:.78rem;color:inherit;opacity:.7}
+
+/* カードのホバー所作 */
+.card,.cat-tile{transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease}
+.card:hover,.cat-tile:hover{transform:translateY(-3px);box-shadow:0 10px 24px -18px rgba(22,21,15,.55)}
+.cat-tile{position:relative;overflow:hidden}
+.cat-tile .pattern-bg{position:absolute;inset:0;color:var(--cat,var(--ai));opacity:.07;pointer-events:none}
+.cat-tile h3,.cat-tile .n{position:relative}
+
+/* 週プレート（学習コース） */
+.course-week{position:relative;overflow:hidden}
+.course-week .wk-mark{
+  position:absolute;right:-.06em;bottom:-.35em;pointer-events:none;user-select:none;
+  font-family:var(--font-data);font-weight:600;line-height:1;
+  font-size:6.5rem;color:var(--cat,var(--ai));opacity:.08;
+}
+.course-week > *{position:relative}
+
+/* ================================================================
+   華やか強化 ── カテゴリ色をページ全体に浸透させる
+   （<main class="cat-*"> から --cat を継承する前提）
+   ================================================================ */
+.pattern-band{background:linear-gradient(135deg,color-mix(in srgb,var(--cat,var(--ai)) 13%,var(--washi)),var(--washi) 58%)}
+.pattern-band.ink{background:linear-gradient(150deg,#262217,var(--sumi) 62%)}
+.pattern-band > .pattern-bg{opacity:.17}
+.pattern-band.ink .pattern-bg{opacity:.28}
+.hero-mark{opacity:.13}
+.pattern-band.ink .hero-mark{opacity:.17}
+
+/* 見出し下の金の飾り罫（カテゴリ色→真鍮のグラデ） */
+.pattern-band h1{position:relative;padding-bottom:.32em}
+.pattern-band h1::after{
+  content:"";position:absolute;left:0;bottom:0;height:3px;width:2.6em;
+  background:linear-gradient(90deg,var(--cat,var(--ai)),var(--shin));
+}
+.pattern-band.ink h1::after{background:linear-gradient(90deg,var(--shin),#E8CE8F)}
+
+/* カテゴリチップは色面で */
+.cat-chip{background:var(--cat,var(--ai));color:var(--washi);border-color:var(--cat,var(--ai))}
+.pattern-band.ink .cat-chip{background:transparent;color:var(--washi);border-color:color-mix(in srgb,var(--washi) 45%,transparent)}
+
+/* 結論箱・表・サイドノート・FAQ・目印にカテゴリ色 */
+.pattern-band:not(.ink) .conclusion{
+  background:color-mix(in srgb,var(--cat,var(--ai)) 7%,var(--washi));
+  border-left:4px solid var(--cat,var(--ai));
+}
+.data-table thead th{background:color-mix(in srgb,var(--cat,var(--keisen)) 14%,var(--washi-2))}
+.data-table th[scope="row"]{background:color-mix(in srgb,var(--cat,var(--keisen)) 8%,var(--washi-2))}
+.side-note{border-top-color:var(--cat,var(--sumi))}
+.side-note dd{color:var(--cat,var(--ai))}
+.faq summary::after{color:var(--cat,var(--shin))}
+.faq details[open]{background:color-mix(in srgb,var(--cat,var(--keisen)) 5%,transparent)}
+.card{border-top:3px solid color-mix(in srgb,var(--cat,var(--keisen)) 55%,var(--keisen))}
+.card:hover{border-top-color:var(--cat,var(--shin))}
+.eyebrow{color:var(--cat,var(--ai))}
+.pattern-band.ink .eyebrow{color:var(--shin)}
+main .hr{border-top:0;height:2px;background:linear-gradient(90deg,color-mix(in srgb,var(--cat,var(--keisen)) 45%,var(--keisen)),var(--keisen) 70%)}
+
+@media (prefers-reduced-motion: reduce){
+  .pattern-band > .pattern-bg,.hero-panel .pattern-bg{animation:none!important}
+  .foil-sweep{animation:none!important}
+  .card:hover,.cat-tile:hover{transform:none}
+}
+
+/* 検索ボックス */
+.gls-search{
+  display:flex;gap:0;max-width:560px;margin:var(--sp-4) 0 var(--sp-2);
+  border:1.5px solid var(--sumi);background:var(--washi);border-radius:var(--radius);
+}
+.gls-search input{
+  flex:1;border:0;background:transparent;padding:.9em 1.1em;
+  font:inherit;font-size:1rem;color:var(--sumi);outline:none;min-width:0;
+}
+.gls-search .gls-count{
+  align-self:center;white-space:nowrap;padding:0 1em;
+  font-family:var(--font-data);font-size:.78rem;color:var(--gin);
+}
+.gls-results{max-width:560px;border:1px solid var(--keisen);border-top:0;display:none;background:var(--washi)}
+.gls-results a{
+  display:block;padding:.6em 1.1em;text-decoration:none;font-size:.9rem;
+  border-bottom:1px solid var(--keisen);
+}
+.gls-results a:last-child{border-bottom:0}
+.gls-results a:hover{background:var(--washi-2)}
+.gls-results a small{color:var(--gin);margin-left:.8em}
+
+/* カテゴリタイル */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
+.cat-tile{
+  border:1px solid var(--keisen);border-top:3px solid var(--cat,var(--ai));
+  padding:var(--sp-4) var(--sp-3);text-decoration:none;background:var(--washi);
+  transition:border-color .25s ease;
+}
+.cat-tile:hover{border-color:var(--cat,var(--ai))}
+.cat-tile h3{font-family:var(--font-display-ja);font-weight:600;font-size:1.05rem;margin-bottom:.3em}
+.cat-tile .n{font-family:var(--font-data);font-size:.75rem;color:var(--gin)}
+
+/* 五十音索引 */
+.gojuon dt{
+  font-family:var(--font-display-ja);font-weight:800;font-size:1.3rem;color:var(--ai);
+  border-bottom:1px solid var(--keisen);padding-bottom:.2em;margin:1.6em 0 .6em;
+}
+.gojuon dd{display:inline}
+.gojuon dd a{
+  display:inline-block;margin:0 1.1em .5em 0;text-decoration:none;font-size:.92rem;
+  border-bottom:1px solid var(--keisen);
+}
+.gojuon dd a:hover{border-bottom-color:var(--shin)}
+.gojuon dd a small{color:var(--gin);font-size:.72rem;margin-left:.3em}
+
+/* 用語ページの前後ナビ */
+.term-nav{
+  display:flex;justify-content:space-between;gap:var(--sp-3);
+  border-top:1px solid var(--keisen);margin-top:var(--sp-5);padding-top:var(--sp-3);
+  font-size:.88rem;
+}
+.term-nav a{text-decoration:none;color:var(--ai)}
+.term-nav a:hover{color:var(--shin)}
+.term-nav .dir{font-family:var(--font-data);font-size:.7rem;color:var(--gin);display:block}
+
+/* 学習コース */
+.course-week{
+  border:1px solid var(--keisen);border-left:3px solid var(--cat,var(--ai));
+  padding:var(--sp-4);margin-bottom:var(--sp-4);background:var(--washi);
+}
+.course-week .wk{font-family:var(--font-data);font-size:.72rem;letter-spacing:.15em;color:var(--gin)}
+.course-week h3{font-family:var(--font-display-ja);font-weight:600;font-size:1.15rem;margin:.3em 0 .6em}
+.course-week .terms a{
+  display:inline-block;margin:0 .9em .4em 0;font-size:.86rem;text-decoration:none;
+  border-bottom:1px solid var(--keisen);
+}
+.course-week .terms a:hover{border-bottom-color:var(--shin)}
+.course-week .course-extra{font-size:.85rem;margin-top:var(--sp-2)}
+.course-week .course-extra a{color:var(--ai)}
+
+/* 確認テスト */
+.quiz-panel{max-width:640px}
+.quiz-cats{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:var(--sp-4) 0}
+.quiz-cats button{
+  font:inherit;font-size:.85rem;padding:.5em 1.2em;cursor:pointer;
+  border:1px solid var(--keisen);background:var(--washi);border-radius:var(--radius);
+}
+.quiz-cats button:hover{border-color:var(--shin)}
+.quiz-q{
+  border:1px solid var(--keisen);border-left:3px solid var(--ai);
+  padding:var(--sp-4);margin:var(--sp-4) 0;font-size:1.02rem;background:var(--washi);
+}
+.quiz-meta{font-family:var(--font-data);font-size:.75rem;color:var(--gin);margin-bottom:var(--sp-2)}
+.quiz-opts{display:grid;gap:var(--sp-2)}
+.quiz-opts button{
+  font:inherit;text-align:left;padding:.8em 1.1em;cursor:pointer;
+  border:1px solid var(--keisen);background:var(--washi);border-radius:var(--radius);
+}
+.quiz-opts button:hover{border-color:var(--ai)}
+.quiz-opts button.ok{border-color:var(--matsu);background:color-mix(in srgb,var(--matsu) 8%,var(--washi))}
+.quiz-opts button.ng{border-color:var(--shu);background:color-mix(in srgb,var(--shu) 7%,var(--washi))}
+.quiz-fb{margin-top:var(--sp-3);font-size:.9rem}
+.quiz-fb a{color:var(--ai)}
+.quiz-score{
+  font-family:var(--font-display-ja);font-weight:800;font-size:clamp(2rem,5vw,3rem);color:var(--ai);
+}
+
+/* ---- reduced-motion: アニメ停止ではなく完成形を最初から表示 ---- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.no-scroll-timeline .reveal{opacity:1!important;transform:none!important}
+  .dieline[data-draw] .cut,
+  .dieline[data-draw] .crease,
+  .dieline[data-draw] .perf,
+  .dieline[data-draw] .half{stroke-dashoffset:0!important;stroke-dasharray:none}
+  .dieline .crease{stroke-dasharray:6 5!important}
+  .dieline .perf{stroke-dasharray:10 4 2 4!important}
+  .dieline .half{stroke-dasharray:10 4 2 4 2 4!important}
+}

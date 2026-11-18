@@ -1,0 +1,39 @@
+/* ============================================================
+   JWP ポータブルブロック共通 デザイントークン
+   準拠: JWPブロック量産 実行プロンプト v1.0 §3-1〜3-4
+   このファイル以外で色・書体・余白の生値を定義しない。
+   ============================================================ */
+:root{
+  /* ---- 色（これ以外の色を使わない）---- */
+  --sumi:      #16150F;  /* 墨。本文色／反転時の地 */
+  --washi:     #F2EEE4;  /* 和紙。基本地色 */
+  --washi-2:   #E7E0D2;  /* 和紙・段差用 */
+  --ai:        #1B2A4A;  /* 藍。見出しアクセント・図版の主線 */
+  --shin:      #A8823C;  /* 真鍮箔。低彩度。面で使わず線と文字のみ */
+  --gin:       #9EA3A8;  /* 銀箔 */
+  --shu:       #9E2B25;  /* 深朱。差し色。画面占有3%未満 */
+  --matsu:     #3E5C4B;  /* 松葉。辞典カテゴリ用の深緑 */
+  --keisen:    #D8D0BE;  /* 罫線 */
+
+  /* ---- 書体（4役）---- */
+  --font-display-ja: "Shippori Mincho B1 Subset","Shippori Mincho B1",serif;
+  --font-body-ja:    "Zen Kaku Gothic New Subset","Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  --font-display-en: "Marcellus Subset",Marcellus,serif;
+  --font-data:       "IBM Plex Mono Subset","IBM Plex Mono",ui-monospace,Consolas,monospace;
+
+  /* ---- 余白（8pxグリッド・飛び階段）---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 40px;
+  --sp-6: 64px;
+  --sp-7: 104px;
+
+  /* ---- 角（折りと断裁の世界。0 か 2px のみ）---- */
+  --radius: 2px;
+
+  /* ---- 寸法 ---- */
+  --measure: 62ch;            /* 本文最大幅 */
+  --wrap-max: 1120px;
+}

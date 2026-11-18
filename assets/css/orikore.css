@@ -1,0 +1,210 @@
+/* ============================================================
+   折りこれ（/orikore/）追加コンポーネント
+   前提: JWP の tokens.css / base.css / blocks.css をそのまま読み込み、
+   ここでは「2つの扉」の導線とフォームだけを足す。色・書体の生値は増やさない。
+   ============================================================ */
+
+body{padding-bottom:0}
+
+/* ---- ヘッダー（PC: 右上に扉2つ） ---- */
+.site-head{gap:var(--sp-4)}
+.brand-mark{font-family:var(--font-display-ja);font-weight:800;font-size:1.25rem;letter-spacing:.08em}
+.brand-mark small{color:color-mix(in srgb,var(--sumi) 62%,var(--washi))}
+.head-nav{display:flex;gap:var(--sp-4);margin-left:auto;font-size:.86rem}
+.head-nav a{text-decoration:none;border-bottom:1px solid transparent;padding:.6em 0}
+.head-nav a:hover,.head-nav a[aria-current="page"]{border-bottom-color:var(--shin)}
+.head-ctas{display:flex;gap:var(--sp-2)}
+@media(max-width:1080px){.head-nav{display:none}.head-ctas{margin-left:auto}}
+@media(max-width:760px){.head-ctas{display:none}}
+
+/* ---- ボタン（扉） ---- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  min-height:48px;padding:.7em 1.5em;border-radius:var(--radius);
+  font:inherit;font-weight:500;font-size:.95rem;line-height:1.35;text-decoration:none;
+  border:1.5px solid var(--ai);cursor:pointer;text-align:center;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.btn--sample{background:var(--ai);color:var(--washi)}
+.btn--sample:hover{background:var(--sumi);border-color:var(--sumi)}
+.btn--consult{background:var(--washi);color:var(--ai)}
+.btn--consult:hover{background:var(--ai);color:var(--washi)}
+.btn small{font-size:.78em;font-weight:400;opacity:.85}
+.head-ctas .btn{min-height:42px;padding:.5em 1.1em;font-size:.84rem}
+.inverse .btn--consult,.pattern-band.ink .btn--consult{background:transparent;color:var(--washi);border-color:var(--washi)}
+.inverse .btn--sample,.pattern-band.ink .btn--sample{background:var(--washi);color:var(--sumi);border-color:var(--washi)}
+
+/* FV・セクション末尾の扉の並び */
+.door-row{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-5)}
+.sec-cta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-3);
+  margin-top:var(--sp-5);padding-top:var(--sp-4);border-top:1px solid var(--keisen);
+}
+.sec-cta p{font-size:.9rem;margin-right:auto}
+@media(max-width:760px){
+  .door-row .btn{flex:1 1 100%}
+  .sec-cta{display:none} /* スマホは下部固定バーが常に扉を出す */
+}
+
+/* ---- スマホ下部固定バー ---- */
+.cta-bar{display:none}
+@media(max-width:760px){
+  .cta-bar{
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2);
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    padding:var(--sp-2) var(--sp-2) calc(var(--sp-2) + env(safe-area-inset-bottom));
+    background:color-mix(in srgb,var(--washi) 96%,transparent);
+    border-top:1px solid var(--keisen);backdrop-filter:blur(6px);
+  }
+  .cta-bar .btn{min-height:52px;padding:.5em .6em;font-size:.88rem}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  body.is-form .cta-bar{display:none} /* フォーム画面では送信ボタンと競合させない */
+  body.is-form{padding-bottom:0}
+}
+
+/* ---- ヒーロー ---- */
+.hero{padding:clamp(56px,9vw,120px) 0 clamp(48px,7vw,96px)}
+.hero h1{font-size:clamp(2.1rem,5.6vw,4.4rem);margin:.5em 0 .5em;max-width:16em}
+.hero .lead{font-size:clamp(1rem,1.6vw,1.15rem);max-width:36em}
+.hero-mark--ori{font-size:clamp(12rem,32vw,26rem)}
+
+/* ---- 2つの扉カード ---- */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4);margin-top:var(--sp-5)}
+@media(max-width:760px){.doors{grid-template-columns:1fr}}
+.door{
+  position:relative;border:1px solid var(--keisen);border-top:4px solid var(--ai);
+  background:var(--washi);padding:var(--sp-5) var(--sp-4);border-radius:var(--radius);
+  display:flex;flex-direction:column;gap:var(--sp-3);
+}
+.door--consult{border-top-color:var(--shin)}
+.door .door-no{font-family:var(--font-data);font-size:.75rem;letter-spacing:.14em;color:color-mix(in srgb,var(--sumi) 60%,var(--washi))}
+.door h3{font-family:var(--font-display-ja);font-weight:800;font-size:clamp(1.35rem,2.4vw,1.7rem)}
+.door ul{list-style:disc;padding-left:1.3em;font-size:.92rem}
+.door .btn{margin-top:auto;align-self:flex-start}
+@media(max-width:760px){.door .btn{align-self:stretch}}
+
+/* ---- 観点（売場で選ばれる箱） ---- */
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-4);margin-top:var(--sp-5)}
+.point{border-top:2px solid var(--sumi);padding-top:var(--sp-3)}
+.point .n{font-family:var(--font-data);font-size:.8rem;color:var(--shin);letter-spacing:.1em}
+.point h3{font-family:var(--font-display-ja);font-weight:600;font-size:1.15rem;margin:.3em 0 .5em}
+.point p{font-size:.92rem}
+
+/* ---- 手順 ---- */
+.steps{counter-reset:st;display:grid;gap:var(--sp-3);margin-top:var(--sp-4);max-width:var(--measure)}
+.steps li{counter-increment:st;position:relative;padding:var(--sp-3) 0 var(--sp-3) 3.4em;border-bottom:1px solid var(--keisen)}
+.steps li::before{
+  content:counter(st,decimal-leading-zero);position:absolute;left:0;top:var(--sp-3);
+  font-family:var(--font-data);font-weight:600;color:var(--shin);font-size:1.05rem;
+}
+.steps li strong{display:block;font-weight:500}
+
+/* ---- チェックリスト ---- */
+.checklist{max-width:var(--measure);margin-top:var(--sp-3)}
+.checklist li{position:relative;padding:.55em 0 .55em 2em;border-bottom:1px dashed var(--keisen)}
+.checklist li::before{content:"";position:absolute;left:.2em;top:.95em;width:.9em;height:.9em;border:1.5px solid var(--ai);border-radius:1px}
+
+/* ---- [要入力] プレースホルダ（公開前に必ず消す） ---- */
+.todo{
+  display:inline-block;font-family:var(--font-data);font-size:.82em;letter-spacing:0;
+  color:var(--shu);border:1px dashed var(--shu);padding:0 .45em;border-radius:var(--radius);
+  background:color-mix(in srgb,var(--shu) 5%,var(--washi));
+}
+
+/* ---- フォーム ---- */
+.form-wrap{max-width:720px}
+.form{display:grid;gap:var(--sp-4);margin-top:var(--sp-4)}
+.field{display:grid;gap:var(--sp-2)}
+.field > label,.field > legend,.field .label{font-weight:500;font-size:.95rem}
+.req,.opt{display:inline-block;font-size:.7rem;font-weight:500;padding:.1em .6em;margin-left:.6em;border-radius:var(--radius);vertical-align:.15em}
+.req{background:var(--shu);color:var(--washi)}
+.opt{border:1px solid var(--keisen);color:color-mix(in srgb,var(--sumi) 70%,var(--washi))}
+.field .hint{font-size:.82rem;color:color-mix(in srgb,var(--sumi) 68%,var(--washi))}
+.form input[type=text],.form input[type=email],.form textarea,.form select{
+  width:100%;font:inherit;font-size:16px;color:var(--sumi);
+  background:#FFFDF8;border:1.5px solid color-mix(in srgb,var(--sumi) 28%,var(--keisen));
+  border-radius:var(--radius);padding:.8em .9em;min-height:50px;
+}
+.form textarea{min-height:120px;resize:vertical}
+.form input:focus,.form textarea:focus,.form select:focus{outline:2px solid var(--ai);outline-offset:1px;border-color:var(--ai)}
+.form [aria-invalid="true"]{border-color:var(--shu)}
+.field .err{font-size:.82rem;color:var(--shu);min-height:0}
+fieldset.field{border:0}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--sp-2)}
+.choice{
+  display:flex;align-items:flex-start;gap:.7em;min-height:52px;cursor:pointer;
+  border:1.5px solid var(--keisen);border-radius:var(--radius);padding:.75em .9em;background:#FFFDF8;font-size:.92rem;
+}
+.choice input{width:20px;height:20px;margin-top:.15em;flex:none;accent-color:var(--ai)}
+.choice:has(input:checked){border-color:var(--ai);background:color-mix(in srgb,var(--ai) 6%,#FFFDF8)}
+.zip-row{display:flex;gap:var(--sp-2);align-items:center}
+.zip-row input{max-width:12em}
+
+/* 写真添付 */
+.drop{
+  display:grid;place-items:center;gap:var(--sp-2);text-align:center;cursor:pointer;
+  border:1.5px dashed var(--ai);border-radius:var(--radius);padding:var(--sp-5) var(--sp-3);
+  background:color-mix(in srgb,var(--ai) 4%,#FFFDF8);min-height:120px;
+}
+.drop.is-over{background:color-mix(in srgb,var(--ai) 10%,#FFFDF8)}
+.drop strong{font-weight:500;color:var(--ai)}
+.drop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.thumbs{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.thumb{position:relative;width:96px;height:96px;border:1px solid var(--keisen);border-radius:var(--radius);overflow:hidden;background:var(--washi-2)}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb button{
+  position:absolute;top:2px;right:2px;width:40px;height:40px;border:0;border-radius:var(--radius);
+  background:color-mix(in srgb,var(--sumi) 78%,transparent);color:var(--washi);font-size:1.1rem;cursor:pointer;
+}
+details.more{border:1px solid var(--keisen);border-radius:var(--radius);padding:0 var(--sp-3);background:var(--washi)}
+details.more summary{cursor:pointer;padding:var(--sp-3) 0;font-weight:500;min-height:48px}
+details.more[open]{padding-bottom:var(--sp-3)}
+details.more .form{margin-top:0}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.form-note{font-size:.82rem;color:color-mix(in srgb,var(--sumi) 70%,var(--washi))}
+.form-note a{color:var(--ai)}
+.form-status{font-size:.92rem;min-height:1.5em}
+.form-status.is-error{color:var(--shu)}
+.submit{min-height:56px;font-size:1.02rem;width:100%}
+.submit[disabled]{opacity:.6;cursor:progress}
+.ts-box{min-height:0}
+
+/* ---- サンクス ---- */
+.next-door{border:1px solid var(--keisen);border-top:4px solid var(--shin);padding:var(--sp-5) var(--sp-4);max-width:720px;margin-top:var(--sp-5);background:var(--washi)}
+.next-door h2{font-size:clamp(1.3rem,2.6vw,1.8rem);margin:.4em 0 .6em}
+
+/* ---- 写真スロット（後差し替え。未設定時は文様が出る） ---- */
+.photo-slot{
+  position:relative;aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;
+  background:var(--slot-img,none) center/cover no-repeat,color-mix(in srgb,var(--cat,var(--ai)) 10%,var(--washi-2));
+  display:grid;place-items:center;color:var(--cat,var(--ai));
+}
+.photo-slot .pattern-bg{position:absolute;inset:0;opacity:.18}
+.photo-slot span{position:relative;font-size:.8rem;background:var(--washi);padding:.2em .7em;border-radius:var(--radius)}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--sp-4);margin-top:var(--sp-5)}
+.case{border:1px solid var(--keisen);background:var(--washi);border-radius:var(--radius);overflow:hidden}
+.case .case-body{padding:var(--sp-4)}
+.case h3{font-family:var(--font-display-ja);font-weight:600;font-size:1.15rem;margin:.2em 0 .5em}
+.case dl{display:grid;grid-template-columns:6em 1fr;gap:.3em .8em;font-size:.88rem;margin-top:var(--sp-2)}
+.case dt{color:color-mix(in srgb,var(--sumi) 65%,var(--washi))}
+
+/* 可読性の補正（JWP の銀文字は和紙地でコントラスト不足になるため本文系だけ濃くする） */
+.breadcrumb,.breadcrumb a,.card .card-no,.site-foot .copyright,.side-note dt{color:color-mix(in srgb,var(--sumi) 64%,var(--washi))}
+.lead{max-width:var(--measure)}
+.prose p{margin-bottom:1em}
+.prose h2{margin:0 0 .8em}
+.prose h3{margin:1.4em 0 .5em}
+.prose ul{list-style:disc;padding-left:1.4em;margin-bottom:1em;max-width:var(--measure)}
+.prose li{margin-bottom:.35em}
+
+/* ---- タップ領域（指で押す要素は40px以上：site-audit 準拠） ---- */
+.todo{font-size:max(12px,.82em)}
+.brand-mark{display:inline-block;padding:.35em 0}
+.site-foot nav a{display:inline-flex;align-items:center;min-height:44px}
+.site-foot nav{gap:0 var(--sp-4)}
+.breadcrumb a{display:inline-flex;align-items:center;min-height:44px}
+.prose ul li a,.small a,.point a{display:inline-flex;align-items:center;min-height:44px}
+.choice input{width:22px;height:22px}
+.site-foot nav a{min-width:44px;justify-content:flex-start}
+.breadcrumb a,.site-foot nav a{border-bottom:0;text-decoration:underline;text-decoration-color:var(--keisen);text-underline-offset:.3em}
+.breadcrumb a:hover,.site-foot nav a:hover{text-decoration-color:var(--shin)}
